@@ -9,17 +9,13 @@ const doesExist = (username) => {
         return user.username === username;
     });
     // Return true if any user with the same username is found, otherwise false
-    if (userName.length > 0) {
-        return true;
-    } else {
-        return false;
-    }
+    return userName.length>0;
 }
 public_users.post("/register", (req,res) => {
  const username = req.body.username;
  const password = req.body.password;
  if(username && password){
-    if(!doesExit(username))
+    if(!doesExist(username))
     {
         users.push({"username":username,"password":password});
         return res.status(200).json({message:"User Registed Successfully.Now you can  login"})
