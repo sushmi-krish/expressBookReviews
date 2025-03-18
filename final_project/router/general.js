@@ -2,7 +2,8 @@ const express = require('express');
 let books = require("./booksdb.js");
 let isValid = require("./auth_users.js").isValid;
 let users = require("./auth_users.js").users;
-const public_users = express.Router();
+let axios = require('axios')
+const public_users = express.Router()
 const doesExist = (username) => {
     // Filter the users array for any user with the same username
     let userName = users.filter((user) => {
@@ -28,10 +29,30 @@ public_users.post("/register", (req,res) => {
  return res.status(400).json({message:"Unable to register"})
 });
 
+
 // Get the book list available in the shop
-public_users.get('/',function (req, res) {
+function getBooksData(){
+    return  new Promise((resolve,reject)=>{
+        try{
+            setTimeout(()=>{
+                resolve(books)
+            },1000);
+        }
+        catch(err){
+            reject(err)
+        }
+    })
+}
+public_users.get('/',async function (req, res) {
+    getBooksData()
+    .then(data=>{
+        return res.json(data)
+    })
+    .catch(err=>{
+        return res.status(404).json({message:"Page is not found"})
+    })
  
-  return res.send(JSON.stringify(books))
+ 
 });
 
 // Get book details based on ISBN
