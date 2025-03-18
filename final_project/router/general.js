@@ -108,22 +108,32 @@ public_users.get('/author/:author', async function (req, res) {
 });
 
 // Get all books based on title
-public_users.get('/title/:title',function (req, res) {
- let title = req.params.title;
- const bookTitle =[]
-for(let book in books){
-    if(books[book].title.toLocaleLowerCase()=== title.toLocaleLowerCase())
+async function getBookByTitle(title)
+{
+    const bookTitle =[];
+    for(let book in books){
+        if(books[book].title.toLocaleLowerCase()=== title.toLocaleLowerCase())
+        {
+            bookTitle.push(books[book])
+        }
+    }
+    if(bookTitle.length>0)
     {
-        bookTitle.push(books[book])
+        return bookTitle;
+    }
+    else
+    {
+        throw "No book found in  this title name"
     }
 }
-if(bookTitle.length>0)
-{
-    return res.json(bookTitle)
+public_users.get('/title/:title',async function (req, res) {
+ let title = req.params.title;
+try{
+    let bookTitle = await getBookByTitle(title);
+    return res.json(bookTitle);
 }
-else
-{
-    return res.status(404).json({message:"Invalid Title"})
+catch(err){
+    return res.status(404).json({message:err})
 }
 });
 
