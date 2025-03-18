@@ -56,35 +56,55 @@ public_users.get('/',async function (req, res) {
 });
 
 // Get book details based on ISBN
-public_users.get('/isbn/:isbn',function (req, res) {
+async function getBookByISBN(isbn){
+ const book = books[isbn];
+ if(book){
+    return book;
+ }
+ else{
+    throw "Book Not Found";
+ }
+}
+public_users.get('/isbn/:isbn', async function (req, res) {
 
   let isbn = req.params.isbn;
-  const book = books[isbn];
-  if(book){
-    return res.send(book)
+ try{
+    const book = await getBookByISBN(isbn);
+    return res.json(book);
   }
-  else{
-  return res.status(400).json({message:"Page not found"});
+  catch(err)
+  {
+    return res.status(404).json({message:"Page not found"})
   }
  });
   
 // Get book details based on author
-public_users.get('/author/:author',function (req, res) {
-  
-  let author = req.params.author;
-  const bookbyAuthor = [];
- for(let book in books){
-    if(books[book].author.toLowerCase() === author.toLocaleLowerCase()){
-        bookbyAuthor.push(books[book])
+async function getBookByAuthor(author){
+     const bookAuthor =[];
+     for(let book in books){
+        if(books[book].author.toLowerCase() === author.toLocaleLowerCase()){
+            bookAuthor.push(books[book])
+     }
     }
- }
- if(bookbyAuthor.length>0)
- {
-   return res.json(bookbyAuthor);
- }
- else{
-    return res.status(404).json({message:"Invalid author "})
- }
+     if(bookAuthor.length>0)
+     {
+       return bookAuthor ;
+     }
+     else{
+       throw "No book found in  this author name"
+     }
+}
+public_users.get('/author/:author', async function (req, res) {
+   let author = req.params.author
+   try{
+    let booksByAuthor = await getBookByAuthor(author);
+    return res.json(booksByAuthor)
+   }
+   catch(err){
+     return res.status(403).json({message:err})
+   }
+
+
 });
 
 // Get all books based on title
