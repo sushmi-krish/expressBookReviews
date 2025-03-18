@@ -144,7 +144,8 @@ public_users.get('/review/:isbn',function (req, res) {
   let bookReview = books[isbn]
   if(bookReview)
   {
-    return res.json(bookReview)
+    
+    return res.json(bookReview.reviews)
   }
   else{
   return res.status(404).json({message: "No review"});
