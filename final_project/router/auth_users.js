@@ -7,6 +7,14 @@ let users = [];
 
 const isValid = (username)=>{ //returns boolean
 //write code to check is the username is valid
+if(username.length>0)
+{
+    return true;
+}
+else
+{
+    return false;
+}
 }
 
 const authenticatedUser = (username,password)=>{ //returns boolean
@@ -29,7 +37,7 @@ regd_users.post("/login", (req,res) => {
   const password = req.body.password;
   if(!username || !password)
   {
-    return req.status(400).json({message:"Error logging in"})
+    return res.status(400).json({message:"Error logging in"})
   }
   if(authenticatedUser(username,password)){
     let accessToken = jwt.sign({
@@ -49,8 +57,26 @@ regd_users.post("/login", (req,res) => {
 
 // Add a book review
 regd_users.put("/auth/review/:isbn", (req, res) => {
-  //Write your code here
-  return res.status(300).json({message: "Yet to be implemented"});
+    const isbn = req.params.isbn;
+    const { review } = req.body;
+    const username = req.session.authorization?.username;
+
+    if (!username) {
+        return res.status(403).json({ message: "Unauthorized" });
+    }
+
+    if (!books[isbn]) {
+        return res.status(404).json({ message: "Book not found" });
+    }
+
+    if (!books[isbn].reviews) {
+        books[isbn].reviews = {};
+    }
+
+    
+    books[isbn].reviews[username] = review;
+
+    return res.status(200).json({ message: "Review added/updated successfully", reviews: books[isbn].reviews });
 });
 
 module.exports.authenticated = regd_users;
