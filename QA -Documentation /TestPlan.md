@@ -73,10 +73,10 @@ Automation Testing
 - Postman environment is configured
 - Test data is prepared
 ### Exit criteria
--All planned test cases are executed 
--All critical and high- severity  bugs resolved 
--Test summary report completed 
--Postman collection exported 
+- All planned test cases are executed 
+- All critical and high- severity  bugs resolved 
+- Test summary report completed 
+- Postman collection exported 
 ---
 # Risk 
 - Missing validation may allow invalid data
