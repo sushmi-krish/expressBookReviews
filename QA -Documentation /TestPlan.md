@@ -68,7 +68,7 @@ Automation Testing
 }
 ---
 ### Entry Criteria
-- Server is running on http://localhost:5000
+- Server is running on http://localhost:3000
 - MongoDB is connected
 - Postman environment is configured
 - Test data is prepared
