@@ -1,79 +1,34 @@
-#  Book Review Application
-This is a simple Express.js-based server-side Book Review Application. It includes user authentication using JWT and session-based login. Users can view, search, add, update, and delete book reviews.
+#  Book Review API - Cypress Automation Project 
+A lightweight API automation project built using cypress designed to validate endpoints of the Bookreview system . This project demostrate the real world Q#a practice including API testing ,defect identification and clear documentation of backend limitation 
 ---
-# Prerequisites
-- CRUD operations with Node.js
--  CRUD operations on Express server with JWT & Session Authentication
+# Project Purpose 
+   This project is part of QA automation Portfolio .It showcase 
+   - API testing using cypress
+   - Manual verfication process
+   - CRUD understanding (POST,GET,PUT,PATCH,DELETE operation)
+   - Detect identification and reporting
+   - Professional documention of  backend  limitation
+   ---
+# Manual API Testing (Postman)
+Before automating the API test in cypress, all end points were manually validate using postman .This ensured that 
+- API route is reacheable
+- The request/response structure was understood
+- Authentication and session handling were confirmed
+- Defects were identified early
+- Automation was based on real ,observed behavior
 ---
-# Setup Instructions
-## 1.Clone the Repository
-
- ```bash
-git clone https://github.com/sushmi-krish/expressBookReviews.git
-cd expressBookReviews
-```
-2. Install Dependencies
-```bash
-npm install
-```
-3.Run the Server
-```bash
-node index.js
-```{
-  "username": "john",
-  "password": "1234"
-}
-
-Server will start on: http://localhost:5000
+# Postman Evidence Included 
+- bookReview.PNG
+- register.PNG
+- login.PNG
+- getallbooks.PNG
+- getbooksbyTitle.PNG
+- getbooksbyauthor.PNG
+- getdetailsISBN.PNG
+- deleted.PNG
 ---
-# File Overview
-File              |  purpose
------
-booksdb.js           Contains the book data reviews
-auth_user.js         Contains registered user logic
-public_users.js      Public routes for book browsing/search
------
-# User Registration
-*POST /register
-Registers a new user by username and password.
-```bash
-      {
-  "username": "john",
-  "password": "john@12"
-}
-```
--------
-# Public Book Endpoints
-* GET /
-  Returns a list of all books (with 1 second delay using Promises).
+### Automated Tested 
 
-* GET /isbn/:isbn
-  Returns book details by ISBN.
-  Example:
-  /isbn/1 → returns book with ISBN 1.
-
-* GET /author/:author
-  Returns all books written by the given author.
-  Example:
-  /author/John Smith → returns books by "John Smith".
-
-* GET /title/:title
- Returns books with the given title.
- Example:
- /title/The Great Gatsby → returns that specific book.
-
-* GET /review/:isbn
-  Returns the review object for the given book ISBN.
-  Example:
-  /review/1 → returns the reviews object for book 1.
------
-# Async/Await & Promises Used
- - async/await used in all route handlers (/isbn/:isbn, /author/:author, /title/:title)
- - Promises used to simulate async book loading on / route via setTimeout
------
-# Summary:
-The Book Review Application has been successfully tested using Postman.
-- All required screenshots have been captured and are included in the repository.
 
 
 
