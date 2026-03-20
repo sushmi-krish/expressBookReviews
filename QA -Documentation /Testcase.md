@@ -1,6 +1,6 @@
-###Feature : 
-Book Review API The Book REview API allow the user to register,login,view all books , add reviews and delete reviews. 
-The feature file demonstrates a Standard BDD structure with clear business -level language resuable steps and realistic acceptance criteria .
+###Feature : Book Review API 
+- The Book REview API allow the user to register,login,view all books , add reviews and delete reviews. 
+- The feature file demonstrates a Standard BDD structure with clear business -level language resuable steps and realistic acceptance criteria .
 ---
 * Scenario 1 : Verify the server is running
 ```bash
